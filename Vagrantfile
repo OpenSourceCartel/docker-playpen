@@ -24,21 +24,18 @@ Vagrant.configure(2) do |config|
     config.vm.network "public_network", bridge: "en1"
   end
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
+  # Share an additional folder to the guest VM. First argument is the host folder the second is the guest path to be mounted
   config.vm.synced_folder "~/Sites", "/Sites"
 
    config.vm.provider "virtualbox" do |vb|
      # Display the VirtualBox GUI when booting the machine
      vb.gui = false
-  
-       # set to 4Gb of ram
-      config.vm.customize ["modifyvm", :id, "--memory", 4096]
-   
-      # set number of cpus to 2 
-      config.vm.customize ["modifyvm", :id, "--cpus", 2]
+     
+     # set to 4Gb of ram
+     vb.memory = 1024
+     
+     # set number of cpus to 2
+     vb.cpus = 2
    end
 
   # uncomment to set the number of cpus to half of what you have avalible
