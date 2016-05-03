@@ -47,9 +47,17 @@ user:root
 pass:root
 
 ##Installation Instructions
+
+To get docker-playpenn setup on your host machine follow the instructions bellow
+
 ### Prerequisites 
   - Latest Virtual box
   - Latest vagrant
+
+#### Shared folders
+An important step to correctly seting up your docker playpen is making sure the correct folder from your host machine is mounted to the vagrant VM. as default the Vagrant file will try to mount the ~/Sites folder. Which is mac osx default web server folder, you can change this folder to any folder on your host machine, but the folder must exist on the vagrant provisioning will fail!!!
+
+A default vagrant shared folder named '/vagrant' is automagically mounted to any vagrant box, this will mount the docker-playpen repo folder from your host machine, but to avoid confusion we mount the sites folder for the webroot of projects
 
 ####To install first clone this repository
 
