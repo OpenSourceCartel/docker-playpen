@@ -26,21 +26,19 @@ Vagrant.configure(2) do |config|
 
   # Share an additional folder to the guest VM. First argument is the host folder the second is the guest path to be mounted
   config.vm.synced_folder "~/Sites", "/Sites"
-
-   config.vm.provider "virtualbox" do |vb|
-     # Display the VirtualBox GUI when booting the machine
+  
+  # configure the guest settings
+  config.vm.provider "virtualbox" do |vb|
+    # Display the VirtualBox GUI when booting the machine
      vb.gui = false
      
      # set to 4Gb of ram
-     vb.memory = 1024
+     vb.memory = 4096
      
      # set number of cpus to 2
      vb.cpus = 2
    end
-
-  # uncomment to set the number of cpus to half of what you have avalible
-  #config.vm.customize ["modifyvm", :id, "--cpus", `awk "/^processor/ {++n} END {print n}" /proc/cpuinfo 2> /dev/null || sh -c 'sysctl hw.logicalcpu 2> /dev/null || echo ": 2"' | awk \'{print \$2}\' `.chomp ]
-
+   
   # fire the build commands for our new guest
    config.vm.provision "shell", inline: <<-SHELL
      debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
