@@ -21,7 +21,8 @@ Vagrant.configure(2) do |config|
   
   # create a bridged interface adapter, this will make your vm look like another physical host on your network, should get your ip from DHCP
   Vagrant.configure("2") do |config|
-    config.vm.network "public_network", bridge: "en1"
+    config.vm.network "public_network", bridge: "eth0"
+    config.vm.network "private_network", ip: "192.168.33.10"
   end
 
   # Share an additional folder to the guest VM. First argument is the host folder the second is the guest path to be mounted
