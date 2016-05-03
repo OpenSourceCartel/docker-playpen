@@ -2,23 +2,24 @@
 
 A ready to go docker developer environment.
 
-Built using vagrant.
+Built with vagrant using the ubuntu/trusty64 14.04.4 LTS Server distro.
 
 Comes pre-installed with;
 
-#Nginx
-Acts as a reverse proxy from your network to docker containers
+###Nginx
+Acts as a reverse proxy from your public network to docker containers
 
-#Mysql
-Database server for docker containers (I don't agree with using mysql in a microservices enviroment)
+###Mysql
+Database server for docker containers.
+I don't agree with using mysql in a microservices enviroment, in a production enviroment your always best having a backed DB instance only accessible on an internal network ip from your web servers.
 
-#Docker
+###Docker
 docker-engine for running docker containers
 
-#Docker-compose
+###Docker-compose
 A tool for defining and running multi-container Docker applications
 
-The Vagrant file should create a virtual box machine with 4 interfaces
+The Vagrant file should automagically create a virtual box machine with 4 interfaces
 
 1 public network bridged interface
  - creates a bridged interface, sharing your host box on your network as a physical machine
@@ -37,20 +38,23 @@ The Vagrant file should create a virtual box machine with 4 interfaces
 1 docker interface
   - used by docker engine to to create an interface shared between docker containers and your guest interfaces
 
-#Mysql Details
+##Mysql Details
+MySQL server version 5.5.49
+
+Credentials are specified in the Vagrantfile as followed
+
 user:root
 pass:root
 
-
-#Installation Instructions
-## Prerequisites 
+##Installation Instructions
+### Prerequisites 
   - Latest Virtual box
   - Latest vagrant
 
-##To install first clone this repository
+####To install first clone this repository
 
 git clone https://github.com/OpenSourceCartel/docker-playpen.git
 
-##Provision the vagrant host
+####Provision the vagrant host
 
 vagrant up --provision
