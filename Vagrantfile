@@ -53,6 +53,7 @@ Vagrant.configure(2) do |config|
      sudo apt-get purge lxc-docker
      sudo apt-get update
      sudo apt-cache policy docker-engine
-     sudo apt-get install -y linux-image-extra-$(uname -r) apt-transport-https ca-certificates build-essential nginx mysql-server htop language-pack-en-base git curl wget apparmor docker-engine
+     sudo apt-get install -y linux-image-extra-$(uname -r) apt-transport-https ca-certificates build-essential nginx mysql-server htop language-pack-en-base git curl wget apparmor docker-engine install python-pip
+     sudo pip install docker-compose -y
    SHELL
 end
