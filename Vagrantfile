@@ -19,9 +19,14 @@ Vagrant.configure(2) do |config|
   # `vagrant box outdated`. This is not recommended.
   config.vm.box_check_update = true
   
-  # create a bridged interface adapter, this will make your vm look like another physical host on your network, should get your ip from DHCP
+  # creates a bridged interface adapter, this will make your vm look like another physical host on your network
+  # should get your ip from DHCP, very helpfull for sharing/testing over a local netowkr
   config.vm.network "public_network", bridge: "eth0"
+  
+  # creates a private network interface accessible from your host to the gest vagrant box created 
   config.vm.network "private_network", ip: "192.168.33.10"
+  
+  # side not you will also get a NAT interface created as well by vagrant, and also a docker interface from when we install docker later
 
   # Share an additional folder to the guest VM. First argument is the host folder the second is the guest path to be mounted
   config.vm.synced_folder "~/Sites", "/Sites"
@@ -49,6 +54,5 @@ Vagrant.configure(2) do |config|
      sudo apt-get update
      sudo apt-cache policy docker-engine
      sudo apt-get install -y linux-image-extra-$(uname -r) apt-transport-https ca-certificates build-essential nginx mysql-server htop language-pack-en-base git curl wget apparmor docker-engine
-     sudo service docker start
    SHELL
 end
