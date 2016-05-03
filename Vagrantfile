@@ -18,20 +18,11 @@ Vagrant.configure(2) do |config|
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
   config.vm.box_check_update = true
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
+  
+  # create a bridged interface adapter, this will make your vm look like another physical host on your network, should get your ip from DHCP
+  Vagrant.configure("2") do |config|
+    config.vm.network "public_network", bridge: "en1"
+  end
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -39,31 +30,21 @@ Vagrant.configure(2) do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder "~/Sites", "/Sites"
 
-  # Provider-specific configuration so you can fine-tune various
-  # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
+   config.vm.provider "virtualbox" do |vb|
+     # Display the VirtualBox GUI when booting the machine
+     vb.gui = false
+   end
+   
+   # set to 4Gb of ram
+   config.vm.customize ["modifyvm", :id, "--memory", 4096]
+   
+  # set number of cpus to 2 
+  config.vm.customize ["modifyvm", :id, "--cpus", 2]
 
-  # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
-  # such as FTP and Heroku are also available. See the documentation at
-  # https://docs.vagrantup.com/v2/push/atlas.html for more information.
-  # config.push.define "atlas" do |push|
-  #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
-  # end
+  # uncomment to set the number of cpus to half of what you have avalible
+  #config.vm.customize ["modifyvm", :id, "--cpus", `awk "/^processor/ {++n} END {print n}" /proc/cpuinfo 2> /dev/null || sh -c 'sysctl hw.logicalcpu 2> /dev/null || echo ": 2"' | awk \'{print \$2}\' `.chomp ]
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-  # documentation for more information about their specific syntax and use.
+  # fire the build commands for our new guest
    config.vm.provision "shell", inline: <<-SHELL
      debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
      debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password root'
