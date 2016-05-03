@@ -33,13 +33,13 @@ Vagrant.configure(2) do |config|
    config.vm.provider "virtualbox" do |vb|
      # Display the VirtualBox GUI when booting the machine
      vb.gui = false
+  
+       # set to 4Gb of ram
+      config.vm.customize ["modifyvm", :id, "--memory", 4096]
+   
+      # set number of cpus to 2 
+      config.vm.customize ["modifyvm", :id, "--cpus", 2]
    end
-   
-   # set to 4Gb of ram
-   config.vm.customize ["modifyvm", :id, "--memory", 4096]
-   
-  # set number of cpus to 2 
-  config.vm.customize ["modifyvm", :id, "--cpus", 2]
 
   # uncomment to set the number of cpus to half of what you have avalible
   #config.vm.customize ["modifyvm", :id, "--cpus", `awk "/^processor/ {++n} END {print n}" /proc/cpuinfo 2> /dev/null || sh -c 'sysctl hw.logicalcpu 2> /dev/null || echo ": 2"' | awk \'{print \$2}\' `.chomp ]
