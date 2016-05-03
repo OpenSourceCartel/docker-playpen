@@ -26,6 +26,9 @@ Vagrant.configure(2) do |config|
   # creates a private network interface accessible from your host to the gest vagrant box created 
   config.vm.network "private_network", ip: "192.168.33.10"
   
+  # define our hostname
+  config.vm.hostname = "docker-playpen"
+  
   # side not you will also get a NAT interface created as well by vagrant, and also a docker interface from when we install docker later
 
   # Share an additional folder to the guest VM. First argument is the host folder the second is the guest path to be mounted
@@ -42,6 +45,9 @@ Vagrant.configure(2) do |config|
      # set number of cpus to 2
      vb.cpus = 2
    end
+   
+   # set a welcome banner when logging in to the vagrant host
+   config.vm.post_up_message = "Welcome to Docker PlayPen"
    
   # fire the build commands for our new guest
    config.vm.provision "shell", inline: <<-SHELL
