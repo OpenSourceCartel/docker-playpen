@@ -60,11 +60,11 @@ Vagrant.configure(2) do |config|
    # set a welcome banner when logging in to the vagrant host
    config.vm.post_up_message = "Welcome to Docker PlayPen"
    
-#   Vagrant.configure("2") do |config|
-#     config.vm.provider "docker" do |d|
-#       vd.image = "foo/bar"
-#       end
-#    end
+   Vagrant.configure("2") do |config|
+     config.vm.provider "docker" do |d|
+       vd.image = "jkirkby91/lap-stack-docker"
+       end
+    end
    
   # fire the build commands for our new guest
    config.vm.provision "shell", inline: <<-SHELL
