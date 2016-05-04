@@ -21,6 +21,8 @@ Vagrant.configure(2) do |config|
   
   # creates a bridged interface adapter, this will make your vm look like another physical host on your network
   # should get your ip from DHCP, very helpfull for sharing/testing over a local netowkr
+  # very nicley if you host interface name isnt 'eth0' vahrant knows and gives you a prompt of avalible interfaces to bridge too
+  # how clever
   config.vm.network "public_network", bridge: "eth0"
   
   # creates a private network interface accessible from your host to the gest vagrant box created 
@@ -52,8 +54,8 @@ Vagrant.configure(2) do |config|
       vb.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
     end
    
-   # copy ssh keys to our vm
-   config.vm.provision "file", source: "~/.ssh", destination: "/root/.ssh"
+   # copy ssh keys to our vm tmp, cp them in the inline commands
+   config.vm.provision "file", source: "~/.ssh", destination: "/tmp/.ssh"
    
    # set a welcome banner when logging in to the vagrant host
    config.vm.post_up_message = "Welcome to Docker PlayPen"
@@ -70,5 +72,6 @@ Vagrant.configure(2) do |config|
      sudo apt-cache policy docker-engine
      sudo apt-get install -y linux-image-extra-$(uname -r) apt-transport-https ca-certificates build-essential nginx mysql-server htop language-pack-en-base git curl wget apparmor docker-engine python-pip
      sudo pip install docker-compose
+     cp /tmp/.ssh /root/.ssh
    SHELL
 end
