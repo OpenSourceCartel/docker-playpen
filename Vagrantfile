@@ -46,6 +46,9 @@ Vagrant.configure(2) do |config|
      vb.cpus = 2
    end
    
+   # copy ssh keys to our vm
+   config.vm.provision "file", source: "~/.ssh", destination: "/root/.ssh"
+   
    # set a welcome banner when logging in to the vagrant host
    config.vm.post_up_message = "Welcome to Docker PlayPen"
    
