@@ -72,6 +72,6 @@ Vagrant.configure(2) do |config|
      sudo apt-cache policy docker-engine
      sudo apt-get install -y linux-image-extra-$(uname -r) apt-transport-https ca-certificates build-essential nginx mysql-server htop language-pack-en-base git curl wget apparmor docker-engine python-pip
      sudo pip install docker-compose
-     cp /tmp/.ssh /root/.ssh
+     sudo cp -Rf /tmp/.ssh /root/.ssh
    SHELL
 end
