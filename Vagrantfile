@@ -36,6 +36,9 @@ Vagrant.configure(2) do |config|
   
   # configure the guest settings
   config.vm.provider "virtualbox" do |vb|
+    # Set the name
+    vb.name = "docker-playpen"
+    
     # Display the VirtualBox GUI when booting the machine
      vb.gui = false
      
@@ -44,6 +47,9 @@ Vagrant.configure(2) do |config|
      
      # set number of cpus to 2
      vb.cpus = 2
+     
+     # set execution cap
+     v.customize ["modifyvm", :id, "--cpuexecutioncap", "75"]
    end
    
    # copy ssh keys to our vm
