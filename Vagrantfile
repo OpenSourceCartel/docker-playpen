@@ -60,6 +60,12 @@ Vagrant.configure(2) do |config|
    # set a welcome banner when logging in to the vagrant host
    config.vm.post_up_message = "Welcome to Docker PlayPen"
    
+#   Vagrant.configure("2") do |config|
+#     config.vm.provider "docker" do |d|
+#       vd.image = "foo/bar"
+#       end
+#    end
+   
   # fire the build commands for our new guest
    config.vm.provision "shell", inline: <<-SHELL
      debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
@@ -73,5 +79,6 @@ Vagrant.configure(2) do |config|
      sudo apt-get install -y linux-image-extra-$(uname -r) apt-transport-https ca-certificates build-essential nginx mysql-server htop language-pack-en-base git curl wget apparmor docker-engine python-pip
      sudo pip install docker-compose
      sudo cp -Rf /tmp/.ssh /root/.ssh
+     curl -s https://shipyard-project.com/deploy | bash -s -- -h
    SHELL
 end
